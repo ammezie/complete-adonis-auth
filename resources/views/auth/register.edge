@@ -1,0 +1,61 @@
+@layout('layout.app')
+
+@section('content')
+  <div class="columns">
+    <div class="column is-4 is-offset-4">
+      <h2 class="title has-text-centered">Register</h2>
+
+      @include('includes.notification')
+
+      <form action="{{ route('register') }}" method="post">
+        {{ csrfField() }}
+
+        <div class="field">
+          <label class="label">Username</label>
+
+          <div class="control">
+            <input
+              type="text"
+              class="input {{ hasErrorFor('username') ? 'is-danger' : '' }}"
+              name="username"
+              value="{{ old('username', '') }}">
+          </div>
+
+          {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('username'), hasErrorFor('username')) }}
+        </div>
+
+        <div class="field">
+          <label class="label">Email</label>
+
+          <div class="control">
+            <input
+              type="email"
+              class="input {{ hasErrorFor('email') ? 'is-danger' : '' }}"
+              name="email"
+              value="{{ old('email', '') }}">
+          </div>
+
+          {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+        </div>
+
+        <div class="field">
+          <label class="label">Password</label>
+
+          <div class="control">
+            <input
+              type="password"
+              class="input {{ hasErrorFor('password') ? 'is-danger' : '' }}"
+              name="password"
+              value="{{ old('password', '') }}">
+          </div>
+
+          {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+        </div>
+
+        <div class="control">
+          <button type="submit" class="button is-dark is-fullwidth is-uppercase">register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+@endsection

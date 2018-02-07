@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Complete Authentication In AdonisJs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+</head>
+<body>
+
+  <nav class="navbar is-dark">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">AdonisJs</a>
+
+        <button class="button navbar-burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          @loggedIn
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                {{ auth.user.username }}
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="/logout">Logout</a>
+              </div>
+            </div>
+          @else
+            <a class="navbar-item" href="/login">Login</a>
+            <a class="navbar-item" href="/register">Register</a>
+          @endloggedIn
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="section">
+    <div class="container">
+      @!section('content')
+    </div>
+  </div>
+
+</body>
+</html>
