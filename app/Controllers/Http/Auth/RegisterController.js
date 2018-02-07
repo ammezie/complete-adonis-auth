@@ -50,6 +50,28 @@ class RegisterController {
 
     return response.redirect('back')
   }
+
+  async confirmEmail ({ params, session, response }) {
+    // get user with the cinfirmation token
+    const user = await User.findBy('confirmation_token', params.token)
+
+    // set confirmation to null and is_active to true
+    user.confirmation_token = null
+    user.is_active = true
+
+    // persist user to database
+    await user.save()
+
+    // display success message
+    session.flash({
+      notification: {
+        type: 'success',
+        message: 'Your email address has been confirmed.'
+      }
+    })
+
+    return response.redirect('/login')
+  }
 }
 
 module.exports = RegisterController
