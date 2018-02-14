@@ -1,0 +1,63 @@
+@layout('layout.app')
+
+@section('content')
+  <div class="columns">
+    <div class="column is-4 is-offset-4">
+      <h2 class="title has-text-centered">Reset Password</h2>
+
+      @include('includes.notification')
+
+      <form action="/password/reset" method="post">
+        {{ csrfField() }}
+
+        <input type="hidden" name="token" value="{{ token }}">
+
+        <div class="field">
+          <label class="label">Email</label>
+
+          <div class="control">
+            <input
+              type="email"
+              class="input {{ hasErrorFor('email') ? 'is-danger' : '' }}"
+              name="email"
+              value="{{ old('email', '') }}">
+          </div>
+
+          {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+        </div>
+
+        <div class="field">
+          <label class="label">Password</label>
+
+          <div class="control">
+            <input
+              type="password"
+              class="input {{ hasErrorFor('password') ? 'is-danger' : '' }}"
+              name="password"
+              value="{{ old('password', '') }}">
+          </div>
+
+          {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+        </div>
+
+        <div class="field">
+          <label class="label">Confirm Password</label>
+
+          <div class="control">
+            <input
+              type="password"
+              class="input {{ hasErrorFor('password_confirmation') ? 'is-danger' : '' }}"
+              name="password_confirmation"
+              value="{{ old('password_confirmation', '') }}">
+          </div>
+
+          {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('password_confirmation'), hasErrorFor('password_confirmation')) }}
+        </div>
+
+        <div class="control">
+          <button type="submit" class="button is-dark is-fullwidth is-capitalized">Reset password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+@endsection

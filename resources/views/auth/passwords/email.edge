@@ -1,0 +1,33 @@
+@layout('layout.app')
+
+@section('content')
+  <div class="columns">
+    <div class="column is-4 is-offset-4">
+      <h2 class="title has-text-centered">Reset Password</h2>
+
+      @include('includes.notification')
+
+      <form action="/password/email" method="post">
+        {{ csrfField() }}
+
+        <div class="field">
+          <label class="label">Email</label>
+
+          <div class="control">
+            <input
+              type="email"
+              class="input {{ hasErrorFor('email') ? 'is-danger' : '' }}"
+              name="email"
+              value="{{ old('email', '') }}">
+          </div>
+
+          {{ elIf('<span class="help is-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+        </div>
+
+        <div class="control">
+          <button type="submit" class="button is-dark is-fullwidth is-capitalized">Send password reset link</button>
+        </div>
+      </form>
+    </div>
+  </div>
+@endsection
