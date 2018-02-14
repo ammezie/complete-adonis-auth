@@ -15,12 +15,16 @@
 
 const Route = use('Route')
 
-Route.on('/').render('home').as('home')
+Route.on('/').render('home').as('home').middleware(['auth'])
 
-Route.get('register', 'Auth/RegisterController.showRegisterForm')
+Route.get('register', 'Auth/RegisterController.showRegisterForm').middleware([
+  'authenticated'
+])
 Route.post('register', 'Auth/RegisterController.register').as('register')
 Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
-Route.get('login', 'Auth/LoginController.showLoginForm')
+Route.get('login', 'Auth/LoginController.showLoginForm').middleware([
+  'authenticated'
+])
 Route.post('login', 'Auth/LoginController.login').as('login')
 Route.get('logout', 'Auth/AuthenticatedController.logout')
 Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm')
